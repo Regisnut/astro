@@ -1,8 +1,9 @@
 ---
 import '../styles/global.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Greeting from '../components/Greeting.jsx';
-const pageTitle = "Home Page";
+import BlogPost from "../components/BlogPost.astro"
+const allPosts = await Astro.glob('../pages/posts/*.md');
+const pageTitle = "My Astro Learning Blog";
 ---
 
 <html lang="en">
@@ -15,8 +16,9 @@ const pageTitle = "Home Page";
 	</head>
 	<body>
 		<BaseLayout pageTitle={pageTitle}>
-			<h2>My awesome blog subtitle</h2>
-			<Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
-		  </BaseLayout>
-	</body>
+		<p>This is where I will post about my journey learning Astro.</p>
+		<ul>
+			{allPosts.map((post) => <BlogPost url={post.url} title={post.frontmatter.title} />)}		</ul>
+	</BaseLayout>
+	  </body>
 </html>
